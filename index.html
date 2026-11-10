@@ -22,12 +22,43 @@
 
       <title>Engagement Invitation | Nov 22, 2026 | Lokeshwari & Kundan</title>
 
-      <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
-      <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Dancing+Script&amp;display=swap'>
+      <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Dancing+Script:wght@700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="./css/style.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    </head>
    <body>
+      <!-- Welcome Language & Music Prompt Modal -->
+      <div id="welcomeModal" class="welcome-modal-overlay">
+         <div class="welcome-modal-card">
+            <div class="welcome-modal-rings">💍</div>
+            <h2 class="welcome-modal-title">Lokeshwari & Kundan</h2>
+            <div class="welcome-modal-sub">Engagement Invitation | सगाई निमंत्रण</div>
+            <p class="welcome-modal-desc">
+               <div class="welcome-greeting-box">
+                  <span class="welcome-hand-emoji">🙏</span>
+                  <span class="welcome-greeting">Warm greetings from the Hirwani family</span>
+                  <span class="welcome-greeting-hi">हिरवानी परिवार की ओर से आपका हार्दिक अभिनंदन</span>
+                  <span class="welcome-hand-emoji">🙏</span>
+               </div>
+               Please choose your preferred language to enter with music: <br>
+               <strong>कृपया संगीत के साथ देखने के लिए अपनी भाषा चुनें:</strong>
+            </p>
+            <div class="modal-buttons-grid">
+               <button id="modalBtnHi" class="modal-choice-btn" type="button">
+                  <span class="choice-lang">हिन्दी</span>
+                  <span class="choice-sub"><i class="fa fa-music"></i> संगीत के साथ</span>
+               </button>
+               <button id="modalBtnEn" class="modal-choice-btn" type="button">
+                  <span class="choice-lang">English</span>
+                  <span class="choice-sub"><i class="fa fa-music"></i> With Music</span>
+               </button>
+            </div>
+            <button id="modalBtnMute" class="modal-mute-link" type="button">
+               Enter without music / बिना संगीत के आगे बढ़ें
+            </button>
+         </div>
+      </div>
+
       <div class="sakura-falling"></div>
       <img src="https://i.imgur.com/dGOOfnA.png" alt="image-top-right" class="top-right-decoration">
       <img src="https://i.imgur.com/t6ffnbn.png" alt="image-top-left" class="top-left-decoration"> 
@@ -35,7 +66,7 @@
 
       <div class="wrap">
          <div class="title">
-            <h2 class="badge-title">ENGAGEMENT INVITATION</h2>
+            <h2 class="badge-title" id="textBadge">ENGAGEMENT INVITATION</h2>
             
             <!-- Couple Portrait -->
             <div class="couple-frame-wrapper">
@@ -45,14 +76,14 @@
                </div>
             </div>
 
-            <h1>Lokeshwari</h1>
+            <h1 id="brideName">Lokeshwari</h1>
             <h2>&</h2>
-            <h1>Kundan</h1>
-            <h3>Are getting engaged</h3>
+            <h1 id="groomName">Kundan</h1>
+            <h3 id="textStatus">Are getting engaged</h3>
             <p>
-               Inviting you and your family to attend engagement ceremony event on<br>
-               <span class="date">Sunday, 22 November 2026</span> at <span class="time-label">1:00 PM</span><br>
-               Venue : <span class="place">Gandhi Chowk</span> Milpara Maroad ( Kurud )
+               <span id="textInvite">Inviting you and your family to attend engagement ceremony event on</span><br>
+               <span class="date" id="textDate">Sunday, 22 November 2026</span> <span id="textAt">at</span> <span class="time-label" id="textTime">1:00 PM</span><br>
+               <span id="textVenueLabel">Venue :</span> <span class="place" id="textVenue">Gandhi Chowk Milpara Maroad ( Kurud )</span>
             </p>
          </div>
       </div>
@@ -60,18 +91,22 @@
       <!-- Modern Countdown -->
       <div id="time"></div>
 
-      <p class="dance-med">
+      <p class="dance-med" id="textCelebration">
          ceremony & celebration to follow
       </p>
 
       <!-- Action Buttons -->
       <div class="actions">
         <a href="https://maps.app.goo.gl/neZM1uaKqDz7oFee8" target="_blank" rel="noopener noreferrer">
-          <div class="venue-btn"><i class="fa fa-map-marker"></i> SEE THE VENUE</div>
+          <div class="venue-btn" id="btnSeeVenue">
+            <i class="fa fa-location-arrow"></i> 
+            <span id="textSeeVenue">GET DIRECTION</span> 
+            <span class="map-icon-badge">🗺️</span>
+          </div>
         </a>
       </div>
 
-      <p class="footer">
+      <p class="footer" id="textFooter">
          Can't wait to celebrate this auspicious moment of our family with you!
       </p>
 
@@ -79,13 +114,19 @@
         <audio src="./assets/mp3/song.mp3" id="my_audio" loop="loop"></audio> 
       </div>
 
-      <!-- Floating Music Control -->
-      <button id="musicToggle" class="music-toggle-btn" type="button" aria-label="Toggle background music">
-         <i id="musicIcon" class="fa fa-music"></i>
-         <span id="musicBtnText">Play Music</span>
-      </button>
+      <!-- Floating Controls: Language Toggle (Left) & Play Music (Right) -->
+      <div class="floating-controls">
+         <button id="langToggle" class="float-btn lang-toggle-btn" type="button" aria-label="Toggle language Hindi / English">
+            <i class="fa fa-language"></i>
+            <span id="langBtnText">हिन्दी</span>
+         </button>
+         <button id="musicToggle" class="float-btn music-toggle-btn" type="button" aria-label="Toggle background music">
+            <i id="musicIcon" class="fa fa-music"></i>
+            <span id="musicBtnText">Play Music</span>
+         </button>
+      </div>
 
-      <p class="happiness">Join us in our happiness! 💍 ✨</p>
+      <p class="happiness" id="textHappiness">Join us in our happiness! 💍 ✨</p>
       <div class="namaste-container">
          <img src="./assets/namaste.png" alt="Namaste / Pranam" class="namaste-img">
       </div>

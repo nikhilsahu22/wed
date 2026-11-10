@@ -657,12 +657,25 @@ img {
 	border-color: #9b313c;
 }
 
-/* Floating Music Button */
-.music-toggle-btn {
+.map-icon-badge {
+	font-size: 16px;
+	margin-left: 6px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* Floating Action Controls */
+.floating-controls {
 	position: fixed;
 	bottom: 22px;
 	right: 22px;
 	z-index: 1000;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.float-btn {
 	background: #ffffff;
 	border: 2px solid #d4af37;
 	color: #9b313c;
@@ -676,17 +689,55 @@ img {
 	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 	cursor: pointer;
 	transition: all 0.3s ease;
+	white-space: nowrap;
+	text-decoration: none;
+	outline: none;
 }
 
-.music-toggle-btn:hover {
+.float-btn:hover {
 	background: #9b313c;
 	color: #ffffff;
 	border-color: #9b313c;
 	transform: scale(1.05);
 }
 
-.music-toggle-btn i {
-	font-size: 16px;
+.float-btn i {
+	font-size: 15px;
+}
+
+.lang-toggle-btn {
+	background: linear-gradient(135deg, #ffffff 0%, #fff7f4 100%);
+}
+
+/* Hindi Devanagari Font Support */
+body.lang-hi,
+body.lang-hi * {
+	font-family: 'Noto Sans Devanagari', 'Arvo', sans-serif;
+}
+
+body.lang-hi .title h1 {
+	font-family: 'Dancing Script', 'Noto Sans Devanagari', cursive;
+}
+
+body.lang-hi .badge-title {
+	font-family: 'Noto Sans Devanagari', sans-serif !important;
+	letter-spacing: 2px !important;
+}
+
+body.lang-hi .dance-med {
+	font-family: 'Noto Sans Devanagari', sans-serif;
+	font-weight: 700;
+	font-size: 24px;
+}
+
+body.lang-hi .countdown-card .number {
+	font-family: 'Arvo', 'Noto Sans Devanagari', serif;
+}
+
+body.lang-hi .countdown-card .label {
+	font-family: 'Noto Sans Devanagari', sans-serif;
+	letter-spacing: 0.5px;
+	font-size: 12px;
 }
 
 .date, .time-label, .place {
@@ -803,10 +854,197 @@ a {
 		width: 85%;
 		padding: 12px 16px;
 	}
-	.music-toggle-btn {
+	.floating-controls {
 		bottom: 14px;
 		right: 14px;
-		padding: 8px 14px;
-		font-size: 12px;
+		gap: 8px;
 	}
+	.float-btn {
+		padding: 8px 13px;
+		font-size: 11px;
+		gap: 5px;
+	}
+	.float-btn i {
+		font-size: 13px;
+	}
+}
+
+/* Welcome Language & Music Modal */
+.welcome-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(30, 8, 14, 0.75);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+	opacity: 1;
+	transition: opacity 0.4s ease, visibility 0.4s ease;
+	padding: 16px;
+	box-sizing: border-box;
+}
+
+.welcome-modal-overlay.hidden {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.welcome-modal-card {
+	background: linear-gradient(160deg, #ffffff 0%, #fff6f2 100%);
+	border: 2px solid #d4af37;
+	border-radius: 28px;
+	max-width: 440px;
+	width: 100%;
+	padding: 32px 24px;
+	text-align: center;
+	box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(212, 175, 55, 0.35);
+	animation: modalPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	position: relative;
+}
+
+@keyframes modalPopIn {
+	0% {
+		transform: scale(0.85);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.welcome-modal-rings {
+	font-size: 38px;
+	margin-bottom: 8px;
+	animation: pulseRings 2s infinite ease-in-out;
+}
+
+@keyframes pulseRings {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.12); }
+}
+
+.welcome-modal-title {
+	font-family: 'Dancing Script', cursive;
+	font-size: 38px;
+	font-weight: bold;
+	color: #872b43;
+	margin: 0 0 6px;
+	line-height: 1.1;
+}
+
+.welcome-modal-sub {
+	font-family: 'Arvo', serif;
+	font-size: 13px;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	color: #9b313c;
+	margin: 0 0 16px;
+	font-weight: 700;
+}
+
+.welcome-modal-desc {
+	font-size: 14px;
+	color: #564861;
+	line-height: 1.6;
+	margin-bottom: 22px;
+}
+
+.welcome-greeting-box {
+	margin: 12px 0 16px;
+	padding: 8px 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.welcome-hand-emoji {
+	font-size: 28px;
+	line-height: 1.2;
+	display: block;
+	animation: pulseRings 2s infinite ease-in-out;
+}
+
+.welcome-greeting {
+	margin: 6px 0 3px;
+	display: block;
+	font-weight: 700;
+	color: #9b313c;
+	font-size: 15px;
+	letter-spacing: 0.5px;
+}
+
+.welcome-greeting-hi {
+	margin: 2px 0 6px;
+	display: block;
+	font-weight: 700;
+	color: #872b43;
+	font-size: 15px;
+}
+
+.modal-buttons-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 14px;
+	margin-bottom: 16px;
+}
+
+.modal-choice-btn {
+	background: linear-gradient(135deg, #9b313c 0%, #b33a46 100%);
+	color: #ffffff;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	border-radius: 18px;
+	padding: 16px 12px;
+	cursor: pointer;
+	box-shadow: 0 6px 18px rgba(155, 49, 60, 0.3);
+	transition: all 0.25s ease;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	outline: none;
+}
+
+.modal-choice-btn:hover {
+	transform: translateY(-3px) scale(1.02);
+	box-shadow: 0 10px 24px rgba(155, 49, 60, 0.45);
+	background: linear-gradient(135deg, #b33a46 0%, #d4af37 100%);
+}
+
+.modal-choice-btn .choice-lang {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.modal-choice-btn .choice-sub {
+	font-size: 11px;
+	opacity: 0.95;
+	letter-spacing: 0.5px;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.modal-mute-link {
+	background: none;
+	border: none;
+	color: #8b7987;
+	font-size: 12px;
+	text-decoration: underline;
+	cursor: pointer;
+	padding: 6px 10px;
+	transition: color 0.2s ease;
+}
+
+.modal-mute-link:hover {
+	color: #9b313c;
 }
