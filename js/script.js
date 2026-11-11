@@ -48,7 +48,7 @@ var translations = {
         mapTitle: "📍 समारोह स्थल",
         footer: "हमारे परिवार के इस मांगलिक अवसर पर आपकी गरिमामयी उपस्थिति प्रार्थनीय है।",
         happiness: "हमारी खुशियों में शामिल हों! 💍 ✨",
-        langBtn: "English",
+        langBtn: "EN",
         musicPlay: "संगीत चलाएं",
         musicOn: "संगीत चालू",
         days: "दिन",

@@ -1160,7 +1160,6 @@ body.lang-hi .title p { font-size: 17px; line-height: 2; }
 	outline: 3px solid #d4af37; outline-offset: 3px;
 }
 .celebrate-btn { background: linear-gradient(135deg, #fff 0%, #fff0d6 100%); }
-@media (max-width: 520px) { .floating-controls { flex-wrap: wrap; max-width: calc(100vw - 28px); } }
 @media (prefers-reduced-motion: reduce) {
 	*, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 	.sakura-falling { display: none; }
@@ -1196,3 +1195,27 @@ html[data-theme="dark"] .welcome-modal-desc { color: #e9d3dc; }
 html[data-theme="dark"] .modal-mute-link { color: #c9aab7; }
 html[data-theme="dark"] #skyVeil.on { opacity: 0.3; }   /* page is already dark, so the sky needs less dimming */
 body, #time, .countdown-card, .float-btn, .welcome-modal-card { transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease; }
+
+
+/* ---- Mobile dock: one horizontal row, bottom-left only (right side kept clear for the host watermark) ---- */
+.floating-controls {
+	left: max(12px, env(safe-area-inset-left)); right: auto;
+	bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+	flex-wrap: nowrap; gap: 4px; padding: 5px;
+	max-width: calc(100vw - 120px);            /* never reaches the right-hand edge */
+	background: rgba(255, 255, 255, 0.82); border: 1px solid rgba(212, 175, 55, 0.6);
+	border-radius: 999px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+	backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+html[data-theme="dark"] .floating-controls { background: rgba(32, 10, 26, 0.82); }
+.floating-controls .float-btn {
+	min-width: 42px; height: 42px; padding: 0 12px; justify-content: center;
+	border: 0; box-shadow: none; background: transparent; font-size: 17px; gap: 6px;
+}
+html[data-theme="dark"] .floating-controls .float-btn { background: transparent; }
+.floating-controls .float-btn:hover, .floating-controls .float-btn:active { transform: none; background: #9b313c; color: #fff; }
+html[data-theme="dark"] .floating-controls .float-btn:hover, html[data-theme="dark"] .floating-controls .float-btn:active { background: #d4af37; color: #2a0e22; }
+.floating-controls .lang-toggle-btn { font-size: 12px; padding: 0 10px; }
+.floating-controls .float-btn i { font-size: 17px; }
+#musicBtnText { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }  /* label kept for screen readers */
+body { padding-bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }   /* content never hides behind the dock */
