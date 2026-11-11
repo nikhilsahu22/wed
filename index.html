@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+      <script>
+         (function () { var t = 'dark'; try { t = localStorage.getItem('invite-theme') || 'dark'; } catch (e) {}
+            document.documentElement.setAttribute('data-theme', t); })();
+      </script>
+      <meta name="theme-color" content="#14060f">
       <link rel="shortcut icon" href="favicon.png" type="image/png"> 
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       <meta name="description"
          content="With the divine grace of the almighty, inviting you and your family to attend the Engagement Ceremony of Lokeshwari & Kundan on Sunday, 22nd November 2026 at 1:00 PM. Venue: Gandhi Chowk Milpara Maroad ( Kurud ).">
       <meta name="author" content="Lokeshwari & Kundan">
@@ -22,18 +27,24 @@
 
       <title>Engagement Invitation | Nov 22, 2026 | Lokeshwari & Kundan</title>
 
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Dancing+Script:wght@700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="./css/style.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    </head>
    <body>
+      <!-- Skyshot Fireworks Canvas -->
+      <div id="skyVeil" aria-hidden="true"></div>
+      <canvas id="fireworksCanvas" aria-hidden="true"></canvas>
+
       <!-- Welcome Language & Music Prompt Modal -->
-      <div id="welcomeModal" class="welcome-modal-overlay">
+      <div id="welcomeModal" class="welcome-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
          <div class="welcome-modal-card">
             <div class="welcome-modal-rings">💍</div>
-            <h2 class="welcome-modal-title">Lokeshwari & Kundan</h2>
+            <h2 class="welcome-modal-title" id="welcomeTitle">Lokeshwari & Kundan</h2>
             <div class="welcome-modal-sub">Engagement Invitation | सगाई निमंत्रण</div>
-            <p class="welcome-modal-desc">
+            <div class="welcome-modal-desc">
                <div class="welcome-greeting-box">
                   <span class="welcome-hand-emoji">🙏</span>
                   <span class="welcome-greeting">Warm greetings from the Hirwani family</span>
@@ -42,7 +53,7 @@
                </div>
                Please choose your preferred language to enter with music: <br>
                <strong>कृपया संगीत के साथ देखने के लिए अपनी भाषा चुनें:</strong>
-            </p>
+            </div>
             <div class="modal-buttons-grid">
                <button id="modalBtnHi" class="modal-choice-btn" type="button">
                   <span class="choice-lang">हिन्दी</span>
@@ -60,18 +71,27 @@
       </div>
 
       <div class="sakura-falling"></div>
-      <img src="https://i.imgur.com/dGOOfnA.png" alt="image-top-right" class="top-right-decoration">
-      <img src="https://i.imgur.com/t6ffnbn.png" alt="image-top-left" class="top-left-decoration"> 
+      <img src="https://i.imgur.com/dGOOfnA.png" alt="image-top-right" class="top-right-decoration" decoding="async" aria-hidden="true">
+      <img src="https://i.imgur.com/t6ffnbn.png" alt="image-top-left" class="top-left-decoration" decoding="async" aria-hidden="true">
       <section id="media"></section>
 
       <div class="wrap">
          <div class="title">
             <h2 class="badge-title" id="textBadge">ENGAGEMENT INVITATION</h2>
             
-            <!-- Couple Portrait -->
+            <!-- Couple Portrait with Falling Petals -->
             <div class="couple-frame-wrapper">
                <div class="couple-frame">
-                  <img src="./assets/couple.jpg" alt="Lokeshwari & Kundan" class="couple-photo">
+                  <img src="./assets/couple.jpg" alt="Lokeshwari & Kundan" class="couple-photo" width="220" height="290" fetchpriority="high" decoding="async">
+                  <!-- Rose petals falling across couple photo -->
+                  <div class="couple-petals-overlay">
+                     <span class="photo-petal p1"></span>
+                     <span class="photo-petal p2"></span>
+                     <span class="photo-petal p3"></span>
+                     <span class="photo-petal p4"></span>
+                     <span class="photo-petal p5"></span>
+                     <span class="photo-petal p6"></span>
+                  </div>
                   <div class="couple-ring-badge">💍</div>
                </div>
             </div>
@@ -111,7 +131,7 @@
       </p>
 
       <div class="music">
-        <audio src="./assets/mp3/song.mp3" id="my_audio" loop="loop"></audio> 
+        <audio src="./assets/mp3/song.mp3" id="my_audio" loop="loop" preload="none"></audio> 
       </div>
 
       <!-- Floating Controls: Language Toggle (Left) & Play Music (Right) -->
@@ -119,6 +139,12 @@
          <button id="langToggle" class="float-btn lang-toggle-btn" type="button" aria-label="Toggle language Hindi / English">
             <i class="fa fa-language"></i>
             <span id="langBtnText">हिन्दी</span>
+         </button>
+         <button id="themeToggle" class="float-btn theme-toggle-btn" type="button" aria-label="Switch dark or light mode">
+            <span id="themeIcon" aria-hidden="true">☀️</span>
+         </button>
+         <button id="celebrateBtn" class="float-btn celebrate-btn" type="button" aria-label="Replay fireworks">
+            <span aria-hidden="true">🎆</span>
          </button>
          <button id="musicToggle" class="float-btn music-toggle-btn" type="button" aria-label="Toggle background music">
             <i id="musicIcon" class="fa fa-music"></i>
@@ -133,6 +159,6 @@
 
       <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
       <script src='https://cdn.jsdelivr.net/gh/timoschaefer/jQuery-Sakura/jquery-sakura.min.js'></script>
-      <script src="./js/script.js"></script>
+      <script src="./js/script.js" defer></script>
    </body>
 </html>
